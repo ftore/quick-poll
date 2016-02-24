@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Poll {
 	
@@ -21,6 +23,7 @@ public class Poll {
 	private Long id;
 	
 	@Column (name = "QUESTION")
+	@NotEmpty
 	private String question;
 	
 	@OneToMany (cascade = CascadeType.ALL)
