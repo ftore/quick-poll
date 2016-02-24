@@ -1,4 +1,4 @@
-package com.akmal.quickpoll.controller;
+package com.akmal.quickpoll.v2.controller;
 
 import java.net.URI;
 

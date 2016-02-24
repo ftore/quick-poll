@@ -1,4 +1,4 @@
-package com.akmal.quickpoll.controller;
+package com.akmal.quickpoll.v2.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +18,8 @@ import com.akmal.quickpoll.dto.VoteResult;
 import com.akmal.quickpoll.repository.VoteRepository;
 
 
-@RestController
+@RestController("computeResultControllerV2")
+@RequestMapping("/v2/")
 public class ComputeResultController {
 	@Inject
 	private VoteRepository voteRepository;
