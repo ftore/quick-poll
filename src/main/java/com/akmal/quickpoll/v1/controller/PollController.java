@@ -19,7 +19,8 @@ import com.akmal.quickpoll.domain.Poll;
 import com.akmal.quickpoll.exception.ResourceNotFoundException;
 import com.akmal.quickpoll.repository.PollRepository;
 
-@RestController
+@RestController("pollControllerV1")
+@RequestMapping("/v1/")
 public class PollController {
 	
 	@Inject

@@ -15,7 +15,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.akmal.quickpoll.domain.Vote;
 import com.akmal.quickpoll.repository.VoteRepository;
 
-@RestController
+@RestController("voteControllerV2")
+@RequestMapping("/v2/")
 public class VoteController {
 	
 	@Inject

@@ -5,6 +5,8 @@ import java.net.URI;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +21,17 @@ import com.akmal.quickpoll.domain.Poll;
 import com.akmal.quickpoll.exception.ResourceNotFoundException;
 import com.akmal.quickpoll.repository.PollRepository;
 
-@RestController
+@RestController("pollControllerV2")
+@RequestMapping("/v2/")
 public class PollController {
 	
 	@Inject
 	private PollRepository pollRepository;
 	
 	@RequestMapping(value = "/polls", method = RequestMethod.GET)
-	public ResponseEntity<Iterable<Poll>> getAllPolls() {
-		Iterable<Poll> allPolls = pollRepository.findAll();
-		return new ResponseEntity<Iterable<Poll>>(allPolls, HttpStatus.OK);
+	public ResponseEntity<Page<Poll>> getAllPolls(Pageable pageable) {
+		Page<Poll> allPolls = pollRepository.findAll(pageable);
+		return new ResponseEntity<>(allPolls, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/polls", method=RequestMethod.POST)

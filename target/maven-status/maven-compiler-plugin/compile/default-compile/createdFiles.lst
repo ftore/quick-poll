@@ -1,8 +1,7 @@
-com\akmal\quickpoll\domain\Poll.class
 com\akmal\quickpoll\repository\VoteRepository.class
-com\akmal\quickpoll\repository\OptionRepository.class
 com\akmal\quickpoll\domain\Option.class
-com\akmal\quickpoll\repository\PollRepository.class
 com\akmal\quickpoll\domain\Vote.class
+com\akmal\quickpoll\domain\Poll.class
+com\akmal\quickpoll\repository\OptionRepository.class
+com\akmal\quickpoll\repository\PollRepository.class
 com\akmal\quickpoll\QuickPollApplication.class
-com\akmal\quickpoll\controller\PollController.class
