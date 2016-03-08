@@ -1,5 +1,8 @@
 package com.akmal.quickpoll.v3.controller;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.net.URI;
 
 import javax.inject.Inject;
@@ -22,8 +25,10 @@ import com.akmal.quickpoll.domain.Poll;
 import com.akmal.quickpoll.exception.ResourceNotFoundException;
 import com.akmal.quickpoll.repository.PollRepository;
 
+
 @RestController("pollControllerV3")
-@RequestMapping({"/v3/", "/oauth2/v3/"})
+@RequestMapping("/v3/")
+//@RequestMapping({"/v3/", "/oauth2/v3/"})
 public class PollController {
 	
 	@Inject
@@ -32,8 +37,20 @@ public class PollController {
 	@RequestMapping(value = "/polls", method = RequestMethod.GET)
 	public ResponseEntity<Page<Poll>> getAllPolls(Pageable pageable) {
 		Page<Poll> allPolls = pollRepository.findAll(pageable);
+		for(Poll p : allPolls) {
+			updatePollResourceWithLinks(p, pageable);
+		}
 		return new ResponseEntity<>(allPolls, HttpStatus.OK);
 	}
+	
+	/*@RequestMapping(value="/polls", method=RequestMethod.GET)
+	public ResponseEntity<Iterable<Poll>> getAllPolls() {
+		Iterable<Poll> allPolls = pollRepository.findAll();
+		for(Poll p : allPolls) {
+			updatePollResourceWithLinks(p);
+		}
+		return new ResponseEntity<>(allPolls, HttpStatus.OK);
+	}*/
 	
 	@RequestMapping(value="/polls", method=RequestMethod.POST)
 	public ResponseEntity<?> createPoll(@Valid @RequestBody Poll poll) {
@@ -51,6 +68,7 @@ public class PollController {
 	public ResponseEntity<?> getPoll(@PathVariable Long pollId) {
 		verifyPoll(pollId);
 		Poll p = pollRepository.findOne(pollId);
+		updatePollResourceWithLinks(p, null);
 		return new ResponseEntity<> (p, HttpStatus.OK);
 	}
 	
@@ -75,5 +93,11 @@ public class PollController {
 		if(poll == null) {
 			throw new ResourceNotFoundException("Poll with id " + pollId + " not found");
 		}
+	}
+	
+	private void updatePollResourceWithLinks(Poll poll, Pageable pageable) {
+		poll.add(linkTo(methodOn(PollController.class).getAllPolls(pageable)).slash(poll.getPollId()).withSelfRel());
+		poll.add(linkTo(methodOn(VoteController.class).getAllVotes(poll.getPollId())).withRel("votes"));
+		poll.add(linkTo(methodOn(ComputeResultController.class).computeResult(poll.getPollId())).withRel("compute-result"));
 	}
 }
