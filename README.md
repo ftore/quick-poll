@@ -1,12 +1,12 @@
 # Poll RESTful Application in Spring REST + Spring Boot
 
 ### Introduction
-Full featured poll application developed by Spring REST and Spring Boot. Features:
-1. RESTfull API
-2. Basic Authentication
-3. OAuth2 Authentication
-4. In memory authentication server for OAuth2
-5. HATEOAS
+Full featured poll application developed by Spring REST and Spring Boot. Features:\n
+1. RESTfull API\n
+2. Basic Authentication\n
+3. OAuth2 Authentication\n
+4. In memory authentication server for OAuth2\n
+5. HATEOAS\n
 
 
 ## Install
